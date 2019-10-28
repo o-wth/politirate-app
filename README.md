@@ -1,36 +1,16 @@
-# Politi-Rate
+# politirate
 
 A public platform for evaluating politicians and their social media presence using sentiment analysis and language processing.
 
-## To-Do List:
+## Getting Started
 
--   [ ] only 1000 AYLIEN API requests per day, so only 25 Node API requests per day (not enough)
--   [ ] Aylien API key is expired
--   [x] hide API keys
--   [ ] show information about scores when score FAB is clicked
+This project is a starting point for a Flutter application.
 
-## Setup
+A few resources to get you started if this is your first Flutter project:
 
--   create `api/endpoints.js` with the following contents:
+- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-```js
-module.exports = {
-    aylien: 'https://api.aylien.com/api/v1',
-    aylienKey: '<AYLIEN KEY>',
-    aylienID: '<AYLIEN ID>',
-    phone2action: 'https://fmrrixuk32.execute-api.us-east-1.amazonaws.com/hacktj/legislators',
-    phone2actionKey: '<PHONE2ACTION KEY>',
-
-}
-```
-
--   create `api/twitterKeys.js` with the following contents:
-
-```js
-module.exports = {
-    consumer_key: '<TWITTER CONSUMER KEY>',
-    consumer_secret: '<TWITTER CONSUMER SECRET>',
-    access_token_key: '<TWITTER ACCESS TOKEN KEY>',
-    access_token_secret: '<TWITTER ACCESS TOKEN SECRET>'
-}
-```
+For help getting started with Flutter, view our
+[online documentation](https://flutter.dev/docs), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.

@@ -1,4 +1,4 @@
-package com.example.politirate
+package owth.tk.politirate
 
 import android.os.Bundle
 
