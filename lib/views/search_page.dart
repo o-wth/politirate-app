@@ -1,8 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:politirate/configs/endpoints.dart';
 import 'package:politirate/services/api.dart';
+import 'package:flutter/services.dart';
+import 'package:politirate/views/politician.dart';
 import '../theme/style.dart';
 
 class SearchPage extends StatefulWidget {
@@ -52,6 +52,7 @@ class HomeContent extends StatelessWidget {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12)),
             onPressed: () {
+              HapticFeedback.lightImpact();
               showSearch(context: context, delegate: PoliticianSearch());
             },
             child: Padding(
@@ -70,10 +71,13 @@ class HomeContent extends StatelessWidget {
 }
 
 class PoliticianSearch extends SearchDelegate<String> {
+  var list;
+
+
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
-      IconButton(icon: Icon(Icons.clear), onPressed: (){
+      IconButton(icon: Icon(Icons.clear), onPressed: () {
         query = "";
       })
     ];
@@ -101,11 +105,6 @@ class PoliticianSearch extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    var finalList  = [
-      "George Washington",
-      "Abraham Lincoln",
-      "Donald Trump"
-    ];
     var endpoint = GET_POLITICIAN_ENDPOINT;
     var queryParams = {
       "name": query
@@ -118,18 +117,25 @@ class PoliticianSearch extends SearchDelegate<String> {
             return ListTile(title: Text("Search something!"));
           case ConnectionState.active:
           case ConnectionState.waiting:
-            return ListTile(title: Text("Loading..."));
+            if(list != null) return list;
+            return ListTile(title: Text(""));
           case ConnectionState.done:
             if(snapshot.hasError)
               return Text("Oops! An error occured");
-            return ListView.builder(
+            list = ListView.builder(
               itemBuilder: (context, index) => ListTile(
                 title: Text(snapshot.data[index]["name"]),
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Politician(snapshot.data[index]))
+                  );
+                },
               ),
               itemCount: snapshot.data.length,
             );
-        } return null;
+            return list;
+        } return ListTile(title: Text("Loading..."));
       },
     );
   }

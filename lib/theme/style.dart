@@ -7,11 +7,23 @@ const cTextBold = const Color(0xff424242);
 const cAccent = const Color(0xffd1c4e9);
 const cError = const Color(0xFFE57373);
 
+const cardShadow = const BoxShadow(
+    color: Color(0x2c000000),
+    offset: Offset(0.0, 3.0),
+    blurRadius: 12.0
+);
+
 abstract class ThemeText {
   static const TextStyle pageTitle =
       TextStyle(fontSize: 52, fontWeight: FontWeight.w900, letterSpacing: -1);
   static const TextStyle buttonText =
       TextStyle(fontSize: 18, fontWeight: FontWeight.w500, letterSpacing: -1);
+  static const TextStyle nameText =
+    TextStyle(fontSize: 42, fontWeight: FontWeight.w900, letterSpacing: -1);
+  static const TextStyle lastName =
+    TextStyle(fontSize: 36, fontWeight: FontWeight.w900, letterSpacing: -1);
+  static const TextStyle subTitle =
+    TextStyle(fontSize: 18, fontWeight: FontWeight.w500, letterSpacing: -1);
 }
 
 class NoOverScrollBehavior extends ScrollBehavior {
