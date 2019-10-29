@@ -13,4 +13,13 @@ Future<List<dynamic>> getAPIResponseFromEndpoint(
   return json.decode(response.body);
 }
 
+Future<String> getTwitterProfileImage(String username) async {
+  var query = {
+    "username": username
+  };
+  Uri uri = Uri.https(BASE_API_URI, PROFILE_IMAGE_ENDPOINT, query);
+  var response = await http.get(uri);
+  var image = json.decode(response.body);
+  return image["image"];
+}
 
