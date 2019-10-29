@@ -73,7 +73,6 @@ class HomeContent extends StatelessWidget {
 class PoliticianSearch extends SearchDelegate<String> {
   var list;
 
-
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -98,19 +97,16 @@ class PoliticianSearch extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-    // TODO: implement buildResults
-    return null;
+    if(list != null)
+        return list;
+    return Container();
   }
 
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    var endpoint = GET_POLITICIAN_ENDPOINT;
-    var queryParams = {
-      "name": query
-    };
     return FutureBuilder(
-      future: getAPIResponseFromEndpoint(endpoint: endpoint, queryParams: queryParams),
+      future: getPoliticianNames(query),
       builder: (context, snapshot) {
         switch(snapshot.connectionState) {
           case ConnectionState.none:

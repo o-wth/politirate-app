@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:politirate/services/api.dart';
 import 'package:politirate/widgets/card.dart';
+import 'package:transparent_image/transparent_image.dart';
 import '../theme/style.dart';
 
 class Politician extends StatefulWidget {
@@ -52,9 +53,21 @@ class PoliticianContent extends StatefulWidget {
 
 class PoliticianContentState extends State<PoliticianContent> {
   var profileUrl;
+  var tweets, news;
+  var newsScore, tweetsScore;
 
   @override
   void initState() {
+    getTweets(widget.politicianData["twitter"]).then((data) {
+      setState(() {
+        tweetsScore = data["tweetScores"]["totalScore"];
+      });
+    });
+    getNews(widget.politicianData["name"]).then((data) {
+      setState(() {
+        newsScore = data["totalScore"];
+      });
+    });
     getTwitterProfileImage(widget.politicianData["twitter"]).then((link) {
       setState(() { profileUrl = link; });
     });
@@ -80,7 +93,7 @@ class PoliticianContentState extends State<PoliticianContent> {
                       style: ThemeText.nameText
                     ),
                     Text(
-                        '${splitName[1]}',
+                        '${splitName[splitName.length-1]}',
                         style: ThemeText.lastName
                     ),
                     SizedBox(height: 4.0),
@@ -93,37 +106,72 @@ class PoliticianContentState extends State<PoliticianContent> {
               ),
               Container(
                 decoration: BoxDecoration(
-                  boxShadow: [cardShadow]
+                  boxShadow: [cardShadow],
                 ),
-                child: (profileUrl == null) ? Container(
-                  width: 125,
-                  height: 125,
-                  color: cBackground,
-                ) : ClipRRect(
-                  borderRadius: BorderRadius.circular(18),
-                  child: Image.network(
-                    profileUrl,
-                    scale: 73/125,
-                  ),
+                child: Stack(
+                  children: <Widget>[
+                    Container(
+                      width: 125,
+                      height: 125,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(18),
+                        color: cBackground,
+                      ),
+                    ),
+                    (profileUrl != null) ? ClipRRect(
+                      borderRadius: BorderRadius.circular(18),
+                      child: FadeInImage.memoryNetwork(
+                        placeholder: kTransparentImage, image: profileUrl,
+                        fit: BoxFit.cover,
+                        width: 125,
+                        height: 125,
+                      )
+                    ) : Container(),
+                  ],
                 ),
               )
             ],
           ),
           SizedBox(height: 28),
-          DataCard(
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  child: Text(
-                    "This is where the score will be.",
-                    style: ThemeText.subTitle,
-                  ),
-                )
-              ],
-            ),
-          )
+          (tweetsScore != null && newsScore != null) ? ScoreCard(
+            tweetsScore: tweetsScore,
+            newsScore: newsScore,
+          ) : Container()
         ],
       ),
     );
   }
+}
+
+class ScoreCard extends StatelessWidget {
+  final newsScore, tweetsScore;
+  ScoreCard({@required this.newsScore, @required this.tweetsScore})
+  : assert(newsScore != null),
+    assert(tweetsScore != null);
+  @override
+  Widget build(BuildContext context) {
+    return DataCard(
+      child: Table(
+        children: [
+          TableRow(
+            children: <Widget> [
+              Center(child: Text("Twitter", style: ThemeText.subTitle,)),
+              Center(child: Text("Combined", style: ThemeText.subTitle)),
+              Center(child: Text("News", style: ThemeText.subTitle))
+            ]
+          ),
+          TableRow(
+            children: <Widget> [
+              Center(child: Text("$tweetsScore", style: ThemeText.lastName)),
+              Center(child: Text("${(newsScore * 4 + tweetsScore)}", style: ThemeText.lastName)),
+              Center(child: Text("$newsScore", style: ThemeText.lastName))
+            ]
+          )
+        ],
+      )
+    );
+  }
+
+
+
 }

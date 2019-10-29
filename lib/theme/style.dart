@@ -21,7 +21,7 @@ abstract class ThemeText {
   static const TextStyle nameText =
     TextStyle(fontSize: 42, fontWeight: FontWeight.w900, letterSpacing: -1);
   static const TextStyle lastName =
-    TextStyle(fontSize: 36, fontWeight: FontWeight.w900, letterSpacing: -1);
+    TextStyle(fontSize: 32, fontWeight: FontWeight.w900, letterSpacing: -1);
   static const TextStyle subTitle =
     TextStyle(fontSize: 18, fontWeight: FontWeight.w500, letterSpacing: -1);
 }
