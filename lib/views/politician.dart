@@ -57,15 +57,23 @@ class PoliticianContentState extends State<PoliticianContent> {
   var newsScore, tweetsScore;
 
   @override
+  void dispose() {
+    profileUrl = null;
+    super.dispose();
+  }
+
+  @override
   void initState() {
     getTweets(widget.politicianData["twitter"]).then((data) {
       setState(() {
-        tweetsScore = data["tweetScores"]["totalScore"];
+        tweets = data["tweetScores"]["tweets"];
+        tweetsScore = data["tweetScores"]["totalScore"]/tweets.length;
       });
     });
     getNews(widget.politicianData["name"]).then((data) {
       setState(() {
-        newsScore = data["totalScore"];
+        news = data["articles"];
+        newsScore = data["totalScore"]/news.length;
       });
     });
     getTwitterProfileImage(widget.politicianData["twitter"]).then((link) {
@@ -136,6 +144,8 @@ class PoliticianContentState extends State<PoliticianContent> {
           (tweetsScore != null && newsScore != null) ? ScoreCard(
             tweetsScore: tweetsScore,
             newsScore: newsScore,
+            tweets: tweets,
+            news: news,
           ) : Container()
         ],
       ),
@@ -144,10 +154,12 @@ class PoliticianContentState extends State<PoliticianContent> {
 }
 
 class ScoreCard extends StatelessWidget {
-  final newsScore, tweetsScore;
-  ScoreCard({@required this.newsScore, @required this.tweetsScore})
+  final newsScore, tweetsScore, news, tweets;
+  ScoreCard({@required this.newsScore, @required this.tweetsScore, @required this.news, @required this.tweets})
   : assert(newsScore != null),
-    assert(tweetsScore != null);
+    assert(tweetsScore != null),
+    assert(news != null),
+    assert(tweets != null);
   @override
   Widget build(BuildContext context) {
     return DataCard(
@@ -155,23 +167,20 @@ class ScoreCard extends StatelessWidget {
         children: [
           TableRow(
             children: <Widget> [
-              Center(child: Text("Twitter", style: ThemeText.subTitle,)),
+              Center(child: Text("Twitter", style: ThemeText.subTitle)),
               Center(child: Text("Combined", style: ThemeText.subTitle)),
               Center(child: Text("News", style: ThemeText.subTitle))
             ]
           ),
           TableRow(
             children: <Widget> [
-              Center(child: Text("$tweetsScore", style: ThemeText.lastName)),
-              Center(child: Text("${(newsScore * 4 + tweetsScore)}", style: ThemeText.lastName)),
-              Center(child: Text("$newsScore", style: ThemeText.lastName))
+              Center(child: Text("${tweetsScore.toStringAsFixed(2)}", style: ThemeText.lastName)),
+              Center(child: Text("${(newsScore * 2 + tweetsScore * .25).toStringAsFixed(2)}", style: ThemeText.lastName)),
+              Center(child: Text("${newsScore.toStringAsFixed(2)}", style: ThemeText.lastName))
             ]
           )
         ],
       )
     );
   }
-
-
-
 }
