@@ -77,6 +77,7 @@ class PoliticianSearch extends SearchDelegate<String> {
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(icon: Icon(Icons.clear), onPressed: () {
+        HapticFeedback.lightImpact();
         query = "";
       })
     ];
@@ -90,6 +91,7 @@ class PoliticianSearch extends SearchDelegate<String> {
         progress: transitionAnimation,
       ),
       onPressed: () {
+        HapticFeedback.lightImpact();
         close(context, null);
       },
     );
@@ -122,6 +124,7 @@ class PoliticianSearch extends SearchDelegate<String> {
               itemBuilder: (context, index) => ListTile(
                 title: Text(snapshot.data[index]["name"]),
                 onTap: () {
+                  HapticFeedback.lightImpact();
                   Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => Politician(snapshot.data[index]))

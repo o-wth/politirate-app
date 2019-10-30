@@ -5,7 +5,9 @@ const cBackground = const Color(0xffeeeeee);
 const cText = const Color(0xff616161);
 const cTextBold = const Color(0xff424242);
 const cAccent = const Color(0xffd1c4e9);
+const cGood = const Color(0xFFa5d6a7);
 const cError = const Color(0xFFE57373);
+const cOkay = const Color(0xffffab91);
 
 const cardShadow = const BoxShadow(
     color: Color(0x2c000000),
@@ -18,6 +20,8 @@ abstract class ThemeText {
       TextStyle(fontSize: 52, fontWeight: FontWeight.w900, letterSpacing: -1);
   static const TextStyle buttonText =
       TextStyle(fontSize: 18, fontWeight: FontWeight.w500, letterSpacing: -1);
+  static const TextStyle medTitle =
+    TextStyle(fontSize: 24, fontWeight: FontWeight.w900, letterSpacing: -1);
   static const TextStyle nameText =
     TextStyle(fontSize: 42, fontWeight: FontWeight.w900, letterSpacing: -1);
   static const TextStyle lastName =

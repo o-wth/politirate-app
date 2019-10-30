@@ -3,6 +3,7 @@ import "dart:async";
 import "package:http/http.dart" as http;
 import 'package:flutter/material.dart';
 import "../configs/endpoints.dart";
+import '../theme/style.dart';
 
 Future<List<dynamic>> getPoliticianNames(String name) async {
   var queryParams = {
@@ -41,4 +42,12 @@ Future<Map<String, dynamic>> getNews(var name) async {
   var response = await http.get(uri);
   Map<String, dynamic> body = json.decode(response.body);
   return body;
+}
+
+Color getErrorColor(var score) {
+  score += 5;
+  double scoreRes = score / 6;
+  if(scoreRes >= 2/3) return cGood;
+  if(scoreRes >= 1/3) return cOkay;
+  else return cError;
 }
