@@ -8,6 +8,12 @@
 .buildlog/
 .history
 .svn/
+comowthpolitirate.mobileprovision
+
+# Building IPA file
+ios/build/
+Payload/
+Payload.ipa
 
 # IntelliJ related
 *.iml
