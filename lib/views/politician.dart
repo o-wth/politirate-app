@@ -29,8 +29,12 @@ class PoliticianState extends State<Politician> {
             width: 100,
             height: size.height,
           ),
+          Padding(
+              padding: const EdgeInsets.fromLTRB(32, 0, 32, 32),
+              child: Container(child: PoliticianContent(widget.politicianData))
+          ),
           Container(
-            margin: EdgeInsets.fromLTRB(16, 32, 0, 0),
+            margin: EdgeInsets.only(left: 16.0, top: 32.0),
             child: IconButton(
               icon: Icon(Icons.arrow_back, color: cText),
               onPressed: () {
@@ -38,10 +42,7 @@ class PoliticianState extends State<Politician> {
                 Navigator.pop(context);
               },
             ),
-          ),
-          Padding(
-              padding: const EdgeInsets.fromLTRB(32, 0, 32, 32),
-              child: Container(child: PoliticianContent(widget.politicianData)))
+          )
         ],
       ),
     );
