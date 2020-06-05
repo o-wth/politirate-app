@@ -1,16 +1,42 @@
-# politirate
+# Politi-Rate
 
-A new Flutter project.
+![Project frozen](https://img.shields.io/badge/status-frozen-blue.png) ![Project unmaintained](https://img.shields.io/badge/project-unmaintained-red.svg)
 
-## Getting Started
+We are archiving this repository. We have developed a new [API](https://github.com/o-wth/politirate-api) and a new [app](https://github.com/o-wth/politirate-app). 
 
-This project is a starting point for a Flutter application.
+---
 
-A few resources to get you started if this is your first Flutter project:
+A public platform for evaluating politicians and their social media presence using sentiment analysis and language processing.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## To-Do List:
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+-   [ ] only 1000 AYLIEN API requests per day, so only 25 Node API requests per day (not enough)
+-   [ ] Aylien API key is expired
+-   [x] hide API keys
+-   [ ] show information about scores when score FAB is clicked
+
+## Setup
+
+-   create `api/endpoints.js` with the following contents:
+
+```js
+module.exports = {
+    aylien: 'https://api.aylien.com/api/v1',
+    aylienKey: '<AYLIEN KEY>',
+    aylienID: '<AYLIEN ID>',
+    phone2action: 'https://fmrrixuk32.execute-api.us-east-1.amazonaws.com/hacktj/legislators',
+    phone2actionKey: '<PHONE2ACTION KEY>',
+
+}
+```
+
+-   create `api/twitterKeys.js` with the following contents:
+
+```js
+module.exports = {
+    consumer_key: '<TWITTER CONSUMER KEY>',
+    consumer_secret: '<TWITTER CONSUMER SECRET>',
+    access_token_key: '<TWITTER ACCESS TOKEN KEY>',
+    access_token_secret: '<TWITTER ACCESS TOKEN SECRET>'
+}
+```
