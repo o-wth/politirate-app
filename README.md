@@ -1,11 +1,5 @@
 # Politi-Rate
 
-![Project frozen](https://img.shields.io/badge/status-frozen-blue.png) ![Project unmaintained](https://img.shields.io/badge/project-unmaintained-red.svg)
-
-We are archiving this repository. We have developed a new [API](https://github.com/o-wth/politirate-api) and a new [app](https://github.com/o-wth/politirate-app). 
-
----
-
 A public platform for evaluating politicians and their social media presence using sentiment analysis and language processing.
 
 ## To-Do List:
