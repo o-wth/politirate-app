@@ -10,3 +10,5 @@ See <https://github.com/o-wth/politirate/tree/master/v3> for the monorepo.
 ## Features
 
 -   **search history** local to the device (so no cloud storage of data) because we don't want to require account-creation
+-   **conversations** use GPT-3 to allow users to ask political questions to and converse with chat-bots that emulate speaking with a politician themself
+    - TODO: ethics! and in the UI we must make it clear that the chat-bot is not the actual politician
